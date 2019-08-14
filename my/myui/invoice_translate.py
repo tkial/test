@@ -1,0 +1,90 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'invoice_translate.ui'
+#
+# Created by: PyQt5 UI code generator 5.11.3
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(800, 600)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(-1, -1, 801, 551))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.tableWidget = QtWidgets.QTableWidget(self.verticalLayoutWidget)
+        self.tableWidget.setRowCount(6)
+        self.tableWidget.setColumnCount(2)
+        self.tableWidget.setObjectName("tableWidget")
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(0, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(1, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(2, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(3, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(4, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(4, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(5, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(5, 1, item)
+        self.verticalLayout.addWidget(self.tableWidget)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
+        self.menubar.setNativeMenuBar(True)
+        self.menubar.setObjectName("menubar")
+        self.menu = QtWidgets.QMenu(self.menubar)
+        self.menu.setObjectName("menu")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+        self.actionmoban = QtWidgets.QAction(MainWindow)
+        self.actionmoban.setObjectName("actionmoban")
+        self.actionmoban2 = QtWidgets.QAction(MainWindow)
+        self.actionmoban2.setObjectName("actionmoban2")
+        self.menu.addAction(self.actionmoban)
+        self.menubar.addAction(self.menu.menuAction())
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        __sortingEnabled = self.tableWidget.isSortingEnabled()
+        self.tableWidget.setSortingEnabled(False)
+        item = self.tableWidget.item(0, 0)
+        item.setText(_translate("MainWindow", "抬头"))
+        item = self.tableWidget.item(1, 0)
+        item.setText(_translate("MainWindow", "税号"))
+        item = self.tableWidget.item(2, 0)
+        item.setText(_translate("MainWindow", "地 址、电 话"))
+        item = self.tableWidget.item(3, 0)
+        item.setText(_translate("MainWindow", "开户行及账号"))
+        item = self.tableWidget.item(4, 0)
+        item.setText(_translate("MainWindow", "货物类型"))
+        item = self.tableWidget.item(4, 1)
+        item.setText(_translate("MainWindow", "移动通信设备"))
+        item = self.tableWidget.item(5, 0)
+        item.setText(_translate("MainWindow", "销售方"))
+        item = self.tableWidget.item(5, 1)
+        item.setText(_translate("MainWindow", "苏宁易购"))
+        self.tableWidget.setSortingEnabled(__sortingEnabled)
+        self.menu.setTitle(_translate("MainWindow", "文件"))
+        self.actionmoban.setText(_translate("MainWindow", "设置"))
+        self.actionmoban2.setText(_translate("MainWindow", "moban2"))
+

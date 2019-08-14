@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>-1</y>
+      <width>801</width>
+      <height>551</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QTableWidget" name="tableWidget">
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="lineWidth">
+        <number>1</number>
+       </property>
+       <property name="showGrid">
+        <bool>true</bool>
+       </property>
+       <property name="rowCount">
+        <number>6</number>
+       </property>
+       <property name="columnCount">
+        <number>2</number>
+       </property>
+       <attribute name="horizontalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>165</number>
+       </attribute>
+       <attribute name="horizontalHeaderHighlightSections">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="horizontalHeaderMinimumSectionSize">
+        <number>60</number>
+       </attribute>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <row/>
+       <row/>
+       <row/>
+       <row/>
+       <row/>
+       <row/>
+       <column/>
+       <column/>
+       <item row="0" column="0">
+        <property name="text">
+         <string>抬头</string>
+        </property>
+       </item>
+       <item row="0" column="1">
+        <property name="text">
+         <string>苏州恒瑞宏远医疗科技有限公司</string>
+        </property>
+       </item>
+       <item row="1" column="0">
+        <property name="text">
+         <string>税号</string>
+        </property>
+       </item>
+       <item row="1" column="1">
+        <property name="text">
+         <string>91320594MA1X6PHN6H</string>
+        </property>
+       </item>
+       <item row="2" column="0">
+        <property name="text">
+         <string>地 址、电 话</string>
+        </property>
+       </item>
+       <item row="3" column="0">
+        <property name="text">
+         <string>开户行及账号</string>
+        </property>
+       </item>
+       <item row="4" column="0">
+        <property name="text">
+         <string>货物类型</string>
+        </property>
+       </item>
+       <item row="4" column="1">
+        <property name="text">
+         <string>移动通信设备</string>
+        </property>
+       </item>
+       <item row="5" column="0">
+        <property name="text">
+         <string>销售方</string>
+        </property>
+       </item>
+       <item row="5" column="1">
+        <property name="text">
+         <string>苏宁易购</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>true</bool>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="actionmoban"/>
+   </widget>
+   <addaction name="menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionmoban">
+   <property name="text">
+    <string>设置</string>
+   </property>
+  </action>
+  <action name="actionmoban2">
+   <property name="text">
+    <string>moban2</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
