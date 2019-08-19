@@ -20,28 +20,38 @@ def parse_pdf(path, template):
 		
 		page = pdf.pages[0]
 		
-		#print(page.extract_text()) 
+		text = page.extract_text()
+		#print(text) 
 		
-		obj = re.search(r'开票日期:(.*)年(.*)月(.*)日', page.extract_text())
+		obj = re.search(r'开票日期:(.*)年(.*)月(.*)日', text)
 		rq = '%s%s%s' % (obj.group(1).strip(), obj.group(2).strip(), obj.group(3).strip())
 		if not template['rq'] == rq:
-			print('%s 日期不匹配 %s' % (bname, rq))
+			error = '%s 日期不匹配 %s' % (bname, rq)
+			return None, None, error
+		obj = re.search(r'(\d+)\s*发票代码', text)
+		code = obj.group(1)
+		obj = re.search(r'发票号码:(\d+)', text)
+		num = obj.group(1)
+		#print(code, num)
 		
 		#表格
 		table = page.extract_tables()[0]
+		#print(table)
 		#金额
-		money = int(float(table[2][2].split('\n')[0][1:]))
+		#money = int(float(table[2][2].split('\n')[0][1:]))
+		money = int(float(table[2][2].split('¥')[1]))
 		
 		#关键字
 		words = page.extract_words()
-		code = ''
-		num = ''
-		for t in words:
-			text = t['text']
-			if '发票代码' in text:
-				code = text.split(':')[1]
-			if '发票号码' in text:
-				num = text.split(':')[1]
+		#print(words)
+		#code = ''
+		#num = ''
+		#for t in words:
+			#text = t['text']
+			#if '发票代码' in text:
+				#code = text.split(':')[1]
+			#if '发票号码' in text:
+				#num = text.split(':')[1]
 		fname = '{}_{}-{}.pdf'.format(code, num, money) 
 		#print(os.path.basename(path), fname)	
 
@@ -62,7 +72,7 @@ def parse_pdf(path, template):
 			return None, None, error
 		
 		#地 址、电 话
-		dz = tts[3].split(':')[1]
+		dz = tts[3].split(':')[1].strip()
 		if dz:
 			error = '{} 地 址、电 话错误'.format(bname)
 			return None, None, error
@@ -94,8 +104,8 @@ if __name__ == '__main__':
 	#myWin.show()
 	#sys.exit(app.exec_())	
 	
-	t = {'tt':'江苏恒瑞医药股份有限公司', 'sh':'9132070070404786XB', 'xsf':'苏宁易购', 'rq':'20190815'}
-	dir = r'C:\Users\pc\Desktop\3w\8-15'
+	t = {'tt':'江苏恒瑞医药股份有限公司', 'sh':'9132070070404786XB', 'xsf':'唯品会', 'rq':'20190819'}
+	dir = r'C:\Users\64605\Desktop\发票\08-19\400000-'
 	out_dir = os.path.join(dir, 'pp')
 	if os.path.exists(out_dir):		
 		shutil.rmtree(out_dir)
