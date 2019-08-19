@@ -2,7 +2,7 @@
 import pdfplumber
 import os
 import shutil
-import myui.invoice_translate
+from myui.invoice_translate import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication , QMainWindow
 
 
@@ -77,17 +77,17 @@ def parse_pdf(path, template):
 			error = '{} 销售方错误'.format(bname)
 			return None, None, error
 		
-	return fname, money, error
+		return fname, money, error
 
 if __name__ == '__main__':
 	
-	app = QApplication(sys.argv)
-		myWin = MyWindow()
-		myWin.show()
-		sys.exit(app.exec_())	
+	#app = QApplication(sys.argv)
+	#myWin = MyWindow()
+	#myWin.show()
+	#sys.exit(app.exec_())	
 	
-	t = {'tt':'江苏豪森药业集团有限公司', 'sh':'913207006083959289', 'xsf':'苏宁易购'}
-	dir = r'C:\Users\64605\Desktop\发票\q-203239'
+	t = {'tt':'江苏恒瑞医药股份有限公司', 'sh':'9132070070404786XB', 'xsf':'苏宁易购'}
+	dir = r'C:\Users\pc\Desktop\3w\8-14'
 	out_dir = os.path.join(dir, 'pp')
 	if os.path.exists(out_dir):		
 		shutil.rmtree(out_dir)
