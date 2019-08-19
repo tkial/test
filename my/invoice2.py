@@ -2,6 +2,7 @@
 import pdfplumber
 import os
 import shutil
+import re
 from myui.invoice_translate import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication , QMainWindow
 
@@ -18,6 +19,13 @@ def parse_pdf(path, template):
 		bname = os.path.basename(path)
 		
 		page = pdf.pages[0]
+		
+		#print(page.extract_text()) 
+		
+		obj = re.search(r'开票日期:(.*)年(.*)月(.*)日', page.extract_text())
+		rq = '%s%s%s' % (obj.group(1).strip(), obj.group(2).strip(), obj.group(3).strip())
+		if not template['rq'] == rq:
+			print('%s 日期不匹配 %s' % (bname, rq))
 		
 		#表格
 		table = page.extract_tables()[0]
@@ -86,8 +94,8 @@ if __name__ == '__main__':
 	#myWin.show()
 	#sys.exit(app.exec_())	
 	
-	t = {'tt':'江苏恒瑞医药股份有限公司', 'sh':'9132070070404786XB', 'xsf':'苏宁易购'}
-	dir = r'C:\Users\pc\Desktop\3w\8-14'
+	t = {'tt':'江苏恒瑞医药股份有限公司', 'sh':'9132070070404786XB', 'xsf':'苏宁易购', 'rq':'20190815'}
+	dir = r'C:\Users\pc\Desktop\3w\8-15'
 	out_dir = os.path.join(dir, 'pp')
 	if os.path.exists(out_dir):		
 		shutil.rmtree(out_dir)
