@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 import os
 
-rootdir = 'C:\\Users\\pc\\Desktop\\3w\\7-24\\all'
+rootdir = r'C:\Users\pc\Documents\Tencent Files\249695322\FileRecv\08-19\left'
 list = os.listdir(rootdir)
 s = 0
 for file in list:
