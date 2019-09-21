@@ -30,32 +30,42 @@ def parse_pdf(path, template):
 		if rq not in rqs:
 			error = '%s 日期不匹配 %s' % (bname, rq)
 			return error
-		obj = re.search(r'(\d+)\s*发票代码', text)
-		code = obj.group(1)
-		obj = re.search(r'发票号码:(\d+)', text)
-		num = obj.group(1)
-		#print(code, num)
 		
 		#表格
 		table = page.extract_tables()[0]
 		#print(table)
-		#金额
-		#money = int(float(table[2][2].split('\n')[0][1:]))
-		money = int(float(table[2][2].split('¥')[1]))
 		
-		#关键字
-		words = page.extract_words()
-		#print(words)
-		#code = ''
-		#num = ''
-		#for t in words:
-			#text = t['text']
-			#if '发票代码' in text:
-				#code = text.split(':')[1]
-			#if '发票号码' in text:
-				#num = text.split(':')[1]
+		#销售方
+		xsf = table[3][1]
+		if '唯品会' not in xsf and '苏宁' not in xsf:
+			error = '{} 销售方错误'.format(bname)
+			return error
+		
+		code = ''
+		num = ''		
+		money = 0
+		
+		if '唯品会' in xsf:
+			obj = re.search(r'(\d+)\s*发票代码', text)
+			code = obj.group(1)
+			obj = re.search(r'发票号码:(\d+)', text)
+			num = obj.group(1)
+			money = int(float(table[2][2].split('¥')[1]))
+			
+		if '苏宁' in xsf:
+			#关键字
+			words = page.extract_words()
+			#print(words)
+			for t in words:
+				text = t['text']
+				if '发票代码' in text:
+					code = text.split(':')[1]
+				if '发票号码' in text:
+					num = text.split(':')[1]
+			money = int(float(table[2][2].split('\n')[0][1:]))
+		
 		fname = '{}_{}-{}.pdf'.format(code, num, money) 
-		#print(os.path.basename(path), fname)	
+		print(os.path.basename(path), fname)	
 
 		#抬头信息列表
 		tts = table[0][1].split('\n')
@@ -87,14 +97,8 @@ def parse_pdf(path, template):
 		
 		#货物
 		hw = table[1][0]
-		if '移动通信设备' not in hw:
+		if '移动通信设备' not in hw and '电子计算机' not in hw:
 			error = '{} 货物类型错误'.format(bname)
-			return error
-		
-		#销售方
-		xsf = table[3][1]
-		if template['xsf'] not in xsf:
-			error = '{} 销售方错误'.format(bname)
 			return error
 		
 		return None, fname, num, money
@@ -107,8 +111,9 @@ if __name__ == '__main__':
 	#myWin.show()
 	#sys.exit(app.exec_())	
 	
-	t = {'tt':'江苏恒瑞医药股份有限公司', 'sh':'9132070070404786XB', 'xsf':'唯品会', 'rq':'20190819|20190820'}
-	dir = r'C:\Users\pc\Documents\Tencent Files\249695322\FileRecv\08-19\left\65000'
+	t = {'tt':'江苏恒瑞医药股份有限公司', 'sh':'9132070070404786XB', 'rq':'20190920|20190829'}
+	#t = {'tt':'江苏豪森药业集团有限公司', 'sh':'913207006083959289', 'rq':'20190916'}
+	dir = r'C:\Users\64605\Desktop\发票\09-20\汇总\17000-17612'
 	out_dir = os.path.join(dir, 'pp')
 	if os.path.exists(out_dir):		
 		shutil.rmtree(out_dir)
