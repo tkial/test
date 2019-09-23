@@ -16,7 +16,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
 def parse_pdf(path, template):
 	with pdfplumber.open(path) as pdf:
 		
-		error = ''
+		error = 'error'
 		bname = os.path.basename(path)
 		
 		page = pdf.pages[0]
@@ -40,19 +40,24 @@ def parse_pdf(path, template):
 		if '唯品会' not in xsf and '苏宁' not in xsf:
 			error = '{} 销售方错误'.format(bname)
 			return error
+		#金额
+		money = 0
+		t22 = table[2][2]
+		#print(t22)
+		if '\n' in t22:
+			t22 = t22.split('\n')[0]
+		money = int(float(t22.split('¥')[1]))
 		
 		code = ''
 		num = ''		
-		money = 0
-		
 		if '唯品会' in xsf:
 			obj = re.search(r'(\d+)\s*发票代码', text)
 			code = obj.group(1)
 			obj = re.search(r'发票号码:(\d+)', text)
 			num = obj.group(1)
-			money = int(float(table[2][2].split('¥')[1]))
-			
-		if '苏宁' in xsf:
+		
+		else:	
+		#if '苏宁' in xsf:
 			#关键字
 			words = page.extract_words()
 			#print(words)
@@ -62,7 +67,6 @@ def parse_pdf(path, template):
 					code = text.split(':')[1]
 				if '发票号码' in text:
 					num = text.split(':')[1]
-			money = int(float(table[2][2].split('\n')[0][1:]))
 		
 		fname = '{}_{}-{}.pdf'.format(code, num, money) 
 		print(os.path.basename(path), fname)	
@@ -111,9 +115,9 @@ if __name__ == '__main__':
 	#myWin.show()
 	#sys.exit(app.exec_())	
 	
-	t = {'tt':'江苏恒瑞医药股份有限公司', 'sh':'9132070070404786XB', 'rq':'20190920|20190829'}
-	#t = {'tt':'江苏豪森药业集团有限公司', 'sh':'913207006083959289', 'rq':'20190916'}
-	dir = r'C:\Users\64605\Desktop\发票\09-20\汇总\17000-17612'
+	#t = {'tt':'江苏恒瑞医药股份有限公司', 'sh':'9132070070404786XB', 'rq':'20190913|20190914|20190917'}
+	t = {'tt':'江苏豪森药业集团有限公司', 'sh':'913207006083959289', 'rq':'20190923|20190916'}
+	dir = r'C:\Users\64605\Desktop\发票\09-23'
 	out_dir = os.path.join(dir, 'pp')
 	if os.path.exists(out_dir):		
 		shutil.rmtree(out_dir)
