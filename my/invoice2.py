@@ -4,14 +4,14 @@ import os
 import shutil
 import re
 import xlrd,xlwt,xlutils
-from myui.invoice_translate import Ui_MainWindow
+#from myui.invoice_translate import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication , QMainWindow
 
 
-class MyWindow(QMainWindow, Ui_MainWindow):
-	def __init__(self, parent=None):
-		super(MyWindow, self).__init__(parent)
-		self.setupUi(self)
+# class MyWindow(QMainWindow, Ui_MainWindow):
+# 	def __init__(self, parent=None):
+# 		super(MyWindow, self).__init__(parent)
+# 		self.setupUi(self)
 
 def parse_pdf(path, template):
 	with pdfplumber.open(path) as pdf:
@@ -22,7 +22,7 @@ def parse_pdf(path, template):
 		page = pdf.pages[0]
 		
 		text = page.extract_text()
-		#print(text) 
+		#print(text)
 		
 		obj = re.search(r'开票日期:(.*)年(.*)月(.*)日', text)
 		rq = '%s%s%s' % (obj.group(1).strip(), obj.group(2).strip(), obj.group(3).strip())
@@ -49,14 +49,16 @@ def parse_pdf(path, template):
 		money = int(float(t22.split('¥')[1]))
 		
 		code = ''
-		num = ''		
+		num = ''
+		jym = ''
 		if '唯品会' in xsf:
 			obj = re.search(r'(\d+)\s*发票代码', text)
 			code = obj.group(1)
 			obj = re.search(r'发票号码:(\d+)', text)
 			num = obj.group(1)
-		
-		else:	
+			obj = re.search(r'校 验 码:(\d+\s+\d+\s+\d+\s+\d+)', text)
+			jym = obj.group(1)
+		else:
 		#if '苏宁' in xsf:
 			#关键字
 			words = page.extract_words()
@@ -68,7 +70,8 @@ def parse_pdf(path, template):
 				if '发票号码' in text:
 					num = text.split(':')[1]
 		
-		fname = '{}_{}-{}.pdf'.format(code, num, money) 
+		#fname = '{}_{}-{}.pdf'.format(code, num, money)
+		fname = '{}-{}.pdf'.format(money, jym[-5:])
 		print(os.path.basename(path), fname)	
 
 		#抬头信息列表
@@ -116,8 +119,10 @@ if __name__ == '__main__':
 	#sys.exit(app.exec_())	
 	
 	#t = {'tt':'江苏恒瑞医药股份有限公司', 'sh':'9132070070404786XB', 'rq':'20190913|20190914|20190917'}
-	t = {'tt':'江苏豪森药业集团有限公司', 'sh':'913207006083959289', 'rq':'20190925|20190916'}
-	dir = r'C:\Users\pc\Desktop\3w\09-26\91770\3+3+0.95+0.9+0.85+0.3\9000-9276'
+	#t = {'tt':'江苏豪森药业集团有限公司', 'sh':'913207006083959289', 'rq':'20190925|20190916'}
+	#t = {'tt':'天士力医药集团股份有限公司', 'sh':'9112000023944464XD', 'rq':'20200217|20190916'}
+	t = {'tt':'海口市制药厂有限公司', 'sh':'91460100984090386D', 'rq':'20200217|20190916'}
+	dir = r'C:\Users\pc\Desktop\3w\02-17'
 	out_dir = os.path.join(dir, 'pp')
 	if os.path.exists(out_dir):		
 		shutil.rmtree(out_dir)
